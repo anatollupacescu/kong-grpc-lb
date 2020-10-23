@@ -1,0 +1,42 @@
+// protoc proto/product.proto --go_out=plugins=grpc:.
+
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/anatollupacescu/atlant/proto";
+
+message FetchReq {
+    string url = 1;
+}
+
+message FetchRes {
+    bool success = 1;
+}
+
+message ListReq {
+    string sortBy  = 1;
+    bool sortDesc  = 2;
+    uint64 page = 3;
+    uint64 limit = 4;
+}
+
+
+message Product {
+    string id = 1;
+    string name = 2;
+    string price = 3;
+    uint64 updateCount = 4;
+    google.protobuf.Timestamp lastUpdatedOn = 5;
+}
+
+message ListRes {
+    repeated Product products = 1;
+}
+
+service ProductService {
+    rpc List(ListReq) returns (ListRes);
+    rpc Fetch(FetchReq) returns (FetchRes);
+}
