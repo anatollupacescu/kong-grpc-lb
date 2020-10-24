@@ -33,10 +33,18 @@ func main() {
 func run() error {
 	mongoCtx = context.Background()
 
-	db, err := mongo.Connect(mongoCtx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	mongoURL, exists := os.LookupEnv("MONGODB_URL")
+
+	if !exists { // default for local run
+		mongoURL = "mongodb://localhost:27017"
+	}
+
+	db, err := mongo.Connect(mongoCtx, options.Client().ApplyURI(mongoURL))
 	if err != nil {
 		return fmt.Errorf("connect to mongo: %v", err)
 	}
+
+	log.Printf("ping mongo at URL: %v\n", mongoURL)
 
 	if err := db.Ping(mongoCtx, nil); err != nil {
 		return fmt.Errorf("ping mongo: %v", err)
