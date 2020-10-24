@@ -1,31 +1,31 @@
-# atlant.io
+# Sample gRPC project
 
 ## Description
 
 Go grpc service with mongo persistence running in a docker compose environment with Kong based load balancing.
 
-1. Build the image:
+1.Build the image (linux, amd64):
 
 ```sh
 make build
 ```
 
-2. Start the containers (2 by default)
+2.Start the containers (2 by default)
 
 ```sh
 make compose
 ```
 
-3. Provision the load balancer
+3.Provision the load balancer
 
 ```sh
 make provision
 ```
 
-4. Open your grpc client and point it to `127.0.0.1:9080` (no TLS) and import the `product.proto` descriptor file
-
+4.Open your grpc client and point it to `127.0.0.1:9080` (no TLS) and import the `product.proto` descriptor file
 
 ## Testing
+
 To load a demo list of products issues the follwing request:
 
 ```json
@@ -46,7 +46,6 @@ To list by name:
 ```
 
 or by update count:
-
 
 To list by name:
 

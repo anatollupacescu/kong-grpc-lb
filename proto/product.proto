@@ -6,7 +6,7 @@ package proto;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/anatollupacescu/atlant/proto";
+option go_package = "github.com/anatollupacescu/kong-grpc-lb/proto";
 
 message FetchReq {
     string url = 1;

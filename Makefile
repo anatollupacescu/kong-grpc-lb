@@ -12,7 +12,7 @@ run:
 	@go run $(shell pwd)
 
 build:
-	@docker build -t atlant_api .
+	@docker build -t api .
 
 .PHONY: compose provision
 

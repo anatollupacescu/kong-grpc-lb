@@ -12,8 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
 
-	product "github.com/anatollupacescu/atlant/internal"
-	"github.com/anatollupacescu/atlant/proto"
+	product "github.com/anatollupacescu/kong-grpc-lb/internal"
+	"github.com/anatollupacescu/kong-grpc-lb/proto"
 )
 
 var (

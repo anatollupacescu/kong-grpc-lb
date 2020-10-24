@@ -1,4 +1,4 @@
-module github.com/anatollupacescu/atlant
+module github.com/anatollupacescu/kong-grpc-lb
 
 go 1.14
 

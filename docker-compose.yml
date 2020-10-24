@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.csvhosting
     networks: 
-    - "atlant"
+    - "compose"
 
   mongo:
     image: mongo
@@ -16,17 +16,17 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=price
     networks: 
-    - "atlant"
+    - "compose"
 
   api:
-    image: atlant_api:latest
+    image: api:latest
     depends_on:
       - 'mongo'
     environment:
       MONGODB_URL: mongodb://mongo:27017/price
     restart: always
     networks: 
-    - "atlant"
+    - "compose"
 
   kong:
     image: kong
@@ -47,7 +47,7 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_PROXY_LISTEN: '0.0.0.0:9080 http2, 0.0.0.0:9081 http2 ssl'
     networks:
-      - atlant
+      - "compose"
     ports:
       - "8000:8000/tcp"
       - "8443:8443/tcp"
@@ -74,7 +74,7 @@ services:
       retries: 3
     restart: on-failure
     networks:
-      - atlant
+      - "compose"
 
   kong-migrations:
     image: kong
@@ -88,7 +88,7 @@ services:
       KONG_PG_USER: kong
       KONG_PG_PASSWORD: kong
     networks:
-      - atlant
+      - "compose"
     restart: on-failure
 
   kong-migrations-up:
@@ -103,8 +103,8 @@ services:
       KONG_PG_USER: kong
       KONG_PG_PASSWORD: kong
     networks:
-      - atlant
+      - "compose"
     restart: on-failure
 
 networks: 
-    atlant:
+    compose:

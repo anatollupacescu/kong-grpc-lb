@@ -16,7 +16,7 @@ WORKDIR /app
 
 RUN make test
 
-RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-s -w" -o bin/atlant ${PROJECT}
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-s -w" -o bin/api ${PROJECT}
 
 RUN useradd -u 10001 myapp
 
@@ -30,6 +30,6 @@ COPY --from=builder /etc/passwd /etc/passwd
 
 USER myapp
 
-COPY --from=builder /app/bin/atlant /atlant
+COPY --from=builder /app/bin/api /api
 
-CMD ["/atlant"]
+CMD ["/api"]

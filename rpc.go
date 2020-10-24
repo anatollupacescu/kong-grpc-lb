@@ -7,8 +7,8 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 
-	product "github.com/anatollupacescu/atlant/internal"
-	"github.com/anatollupacescu/atlant/proto"
+	product "github.com/anatollupacescu/kong-grpc-lb/internal"
+	"github.com/anatollupacescu/kong-grpc-lb/proto"
 )
 
 type ProductServiceServer struct {
