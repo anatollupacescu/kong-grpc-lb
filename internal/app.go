@@ -32,18 +32,18 @@ type CSVRow struct {
 
 type CSVRows []CSVRow
 
-type Sort struct {
+type Page struct {
 	Field       string
 	Order       int
 	Limit, Page int64
 }
 
-func (a App) ListProductPrices(ctx context.Context, sort Sort) ([]productDTO, error) {
+func (a App) ListProductPrices(ctx context.Context, page Page) ([]productDTO, error) {
 	var all bson.M
 	paginatedData, err := pagination.New(a.ProductDB).
-		Limit(sort.Limit).
-		Page(sort.Page).
-		Sort(sort.Field, sort.Order).
+		Limit(page.Limit).
+		Page(page.Page).
+		Sort(page.Field, page.Order).
 		Filter(all).
 		Find()
 

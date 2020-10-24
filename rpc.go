@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/golang/protobuf/ptypes"
+
 	product "github.com/anatollupacescu/atlant/internal"
 	"github.com/anatollupacescu/atlant/proto"
-	"github.com/golang/protobuf/ptypes"
 )
 
 type ProductServiceServer struct {
@@ -16,9 +17,9 @@ type ProductServiceServer struct {
 }
 
 func (p *ProductServiceServer) List(ctx context.Context, in *proto.ListReq) (*proto.ListRes, error) {
-	sort := toSortWithDefaults(in)
+	page := toPageWithDefaults(in)
 
-	products, err := p.App.ListProductPrices(ctx, sort)
+	products, err := p.App.ListProductPrices(ctx, page)
 	if err != nil {
 		return nil, err
 	}
@@ -63,29 +64,26 @@ func (p *ProductServiceServer) Fetch(ctx context.Context, in *proto.FetchReq) (*
 	return &response, nil
 }
 
-func toSortWithDefaults(in *proto.ListReq) product.Sort {
-	sort := product.Sort{
+func toPageWithDefaults(in *proto.ListReq) product.Page {
+	page := product.Page{
 		Field: "Name",
 		Limit: 10,
 		Order: 1,
-		Page:  1,
 	}
 
 	if in.SortBy != "" {
-		sort.Field = in.SortBy
+		page.Field = in.SortBy
 	}
 
 	if in.Limit > 0 {
-		sort.Limit = int64(in.Limit)
+		page.Limit = int64(in.Limit)
 	}
 
 	if in.SortDesc {
-		sort.Order = -1
+		page.Order = -1
 	}
 
-	if sort.Page > 0 { //one-based array indexing
-		sort.Page = int64(in.Page)
-	}
+	page.Page = int64(1 + in.Page)
 
-	return sort
+	return page
 }

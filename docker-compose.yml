@@ -18,24 +18,10 @@ services:
     networks: 
     - "atlant"
 
-  api-1:
+  api:
     image: atlant_api:latest
     depends_on:
       - 'mongo'
-    ports:
-      - "50052:50051"
-    environment:
-      MONGODB_URL: mongodb://mongo:27017/price
-    restart: always
-    networks: 
-    - "atlant"
-
-  api-2:
-    image: atlant_api:latest
-    depends_on:
-      - 'mongo'
-    ports:
-      - "50053:50051"
     environment:
       MONGODB_URL: mongodb://mongo:27017/price
     restart: always
@@ -68,8 +54,6 @@ services:
       - "8001:8001/tcp"
       - "9080:9080/tcp"
       - "9081:9081/tcp"
-      # - "127.0.0.1:8001:8001/tcp"
-      # - "127.0.0.1:8444:8444/tcp"
     healthcheck:
       test: ["CMD", "kong", "health"]
       interval: 10s
@@ -89,8 +73,6 @@ services:
       timeout: 30s
       retries: 3
     restart: on-failure
-    stdin_open: true
-    tty: true
     networks:
       - atlant
 

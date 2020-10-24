@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 # create upstream
-#curl -X POST http://localhost:8001/upstreams --data "name=price.v1.service"
+curl -X POST http://localhost:8001/upstreams --data "name=price.v1.service"
 
 # add two targets to the upstream
 curl -X POST http://localhost:8001/upstreams/price.v1.service/targets \
-    --data "target=api-1:50051"
+    --data "target=atlant_api_1:50051"
 
 curl -X POST http://localhost:8001/upstreams/price.v1.service/targets \
-    --data "target=api-2:50051"
+    --data "target=atlant_api_2:50051"
 
 curl -XPOST http://localhost:8001/services/ \
   --data name=grpc \

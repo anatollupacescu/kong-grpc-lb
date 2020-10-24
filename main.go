@@ -8,11 +8,12 @@ import (
 	"os"
 	"os/signal"
 
-	product "github.com/anatollupacescu/atlant/internal"
-	"github.com/anatollupacescu/atlant/proto"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
+
+	product "github.com/anatollupacescu/atlant/internal"
+	"github.com/anatollupacescu/atlant/proto"
 )
 
 var (
