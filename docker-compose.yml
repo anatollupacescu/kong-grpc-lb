@@ -1,10 +1,10 @@
-version: '3'
+version: '3.7'
 
 services:
   csvhosting:
-    image: csvhosting
-    ports:
-    - 8080:8080
+    build:
+      context: .
+      dockerfile: ./Dockerfile.csvhosting
     networks: 
     - "atlant"
 
